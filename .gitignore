@@ -4,6 +4,9 @@
 .DS_Store
 **/.DS_Store
 
+# Claude Code 기기별 허용 설정 (per-machine 권한 목록)
+.claude/settings.local.json
+
 # Graphify — 기기별 절대 Python 경로 (공유하면 다른 기기에서 깨짐)
 graphify-out/.graphify_python
 

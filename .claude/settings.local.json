@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(brew install:*)",
+      "Bash(graphify install:*)",
+      "Bash(find raw:*)",
+      "Bash(mv concepts/http-authentication.md security/)",
+      "Bash(mv concepts/authorization-header.md security/)",
+      "Bash(mv concepts/basic-auth.md security/)",
+      "Bash(mv concepts/bearer-auth.md security/)",
+      "Bash(mv concepts/oauth-2.md security/)",
+      "Bash(python3:*)",
+      "Bash(chmod +x setup.sh sync.sh)",
+      "Bash(bash -n setup.sh)",
+      "Bash(bash -n sync.sh)",
+      "Bash(./sync.sh)"
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "03 YouTube 영상",
+	"behavior": "create",
+	"noteContentFormat": "# {{title}}\n\n🎬 **채널**: {{author}}\n📺 **URL**: {{url}}\n📅 **업로드**: {{published}}\n\n---\n\n## 설명\n\n{{description}}\n\n## 노트\n\n> 감상 중/후 핵심 포인트를 여기에 메모. 타임스탬프는 `0:00` 형태로.\n\n- \n\n## 스크립트 / 본문\n\n{{content}}\n",
+	"properties": [
+		{
+			"name": "source_type",
+			"value": "video",
+			"type": "text"
+		},
+		{
+			"name": "source_url",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "channel",
+			"value": "{{author}}",
+			"type": "text"
+		},
+		{
+			"name": "published",
+			"value": "{{published}}",
+			"type": "date"
+		},
+		{
+			"name": "captured",
+			"value": "{{date|date:\"YYYY-MM-DD\"}}",
+			"type": "date"
+		},
+		{
+			"name": "description",
+			"value": "{{description}}",
+			"type": "text"
+		},
+		{
+			"name": "tags",
+			"value": "clippings, video, youtube",
+			"type": "multitext"
+		},
+		{
+			"name": "reason",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "ingest_mode",
+			"value": "learn",
+			"type": "text"
+		},
+		{
+			"name": "status",
+			"value": "raw",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://www.youtube.com/watch",
+		"https://youtu.be/",
+		"https://m.youtube.com/watch"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-yt-{{title|slugify}}",
+	"path": "raw/videos"
+}

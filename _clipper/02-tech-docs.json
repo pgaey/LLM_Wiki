@@ -1,0 +1,77 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "02 공식 문서 / 기술 문서",
+	"behavior": "create",
+	"noteContentFormat": "# {{title}}\n\n> 🛠 **공식 문서** · 도메인: `{{domain}}`\n> {{description}}\n\n---\n\n{{content}}",
+	"properties": [
+		{
+			"name": "source_type",
+			"value": "article",
+			"type": "text"
+		},
+		{
+			"name": "doc_type",
+			"value": "official",
+			"type": "text"
+		},
+		{
+			"name": "source_url",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "domain",
+			"value": "{{domain}}",
+			"type": "text"
+		},
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "captured",
+			"value": "{{date|date:\"YYYY-MM-DD\"}}",
+			"type": "date"
+		},
+		{
+			"name": "description",
+			"value": "{{description}}",
+			"type": "text"
+		},
+		{
+			"name": "tags",
+			"value": "clippings, docs, reference",
+			"type": "multitext"
+		},
+		{
+			"name": "reason",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "ingest_mode",
+			"value": "learn",
+			"type": "text"
+		},
+		{
+			"name": "status",
+			"value": "raw",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://developer.mozilla.org/",
+		"https://react.dev/",
+		"https://nextjs.org/docs",
+		"https://vercel.com/docs",
+		"https://nodejs.org/",
+		"https://www.typescriptlang.org/docs",
+		"https://vitejs.dev/",
+		"https://webpack.js.org/",
+		"https://tanstack.com/",
+		"https://docs.github.com/"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-doc-{{title|slugify}}",
+	"path": "raw/articles"
+}

@@ -1,0 +1,66 @@
+{
+	"schemaVersion": "0.1.0",
+	"name": "05 Stack Overflow / Q&A",
+	"behavior": "create",
+	"noteContentFormat": "# {{title}}\n\n❓ **Q&A**: {{url}}\n\n---\n\n{{content}}",
+	"properties": [
+		{
+			"name": "source_type",
+			"value": "article",
+			"type": "text"
+		},
+		{
+			"name": "doc_type",
+			"value": "qa",
+			"type": "text"
+		},
+		{
+			"name": "source_url",
+			"value": "{{url}}",
+			"type": "text"
+		},
+		{
+			"name": "title",
+			"value": "{{title}}",
+			"type": "text"
+		},
+		{
+			"name": "captured",
+			"value": "{{date|date:\"YYYY-MM-DD\"}}",
+			"type": "date"
+		},
+		{
+			"name": "description",
+			"value": "{{description}}",
+			"type": "text"
+		},
+		{
+			"name": "tags",
+			"value": "clippings, qa, troubleshooting",
+			"type": "multitext"
+		},
+		{
+			"name": "reason",
+			"value": "",
+			"type": "text"
+		},
+		{
+			"name": "ingest_mode",
+			"value": "learn",
+			"type": "text"
+		},
+		{
+			"name": "status",
+			"value": "raw",
+			"type": "text"
+		}
+	],
+	"triggers": [
+		"https://stackoverflow.com/questions/",
+		"https://stackexchange.com/",
+		"https://superuser.com/questions/",
+		"https://serverfault.com/questions/"
+	],
+	"noteNameFormat": "{{date|date:\"YYYY-MM-DD\"}}-qa-{{title|slugify}}",
+	"path": "raw/articles"
+}

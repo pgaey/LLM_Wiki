@@ -1,0 +1,14 @@
+# ─── 공유하면 실제로 문제 되는 것만 ───
+
+# macOS 노이즈
+.DS_Store
+**/.DS_Store
+
+# Graphify — 기기별 절대 Python 경로 (공유하면 다른 기기에서 깨짐)
+graphify-out/.graphify_python
+
+# Graphify 중간 산출물 (다음 run 때 재생성)
+graphify-out/.graphify_*.json
+graphify-out/.graphify_*.txt
+graphify-out/.graphify_chunk_*.json
+graphify-out/.needs_update

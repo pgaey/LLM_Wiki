@@ -68,3 +68,14 @@ type: log
   - [[event-loop]] — javascript/
 - **핵심 결론**: 로그 수집이 왜 Nginx에 맞지 않는가 — 역할(HTTP 관문)·이벤트루프(CPU 작업 블로킹)·대안(Sentry/BE API) 3가지로 설명 가능
 - **다음 학습 타겟**: [[epoll]], [[libuv]], [[cdn]], [[ssl-tls]], [[php-fpm]]
+
+## [2026-04-18] study | HTTP / HTTPS / TCP / TLS 흐름
+
+- **모드**: study (자동 synthesize 체인)
+- **reason**: 이전에 공부했던 HTTP/HTTPS/TCP + 인증서 내용을 wiki에 기록하고 복습
+- **원본**: [[2026-04-18-http-https-tcp-tls]]
+- **반영된 wiki (2개, draft)**:
+  - [[tcp]] — network/
+  - [[http-https-tls]] — network/
+- **식별된 스텁**: [[tls-handshake]], [[hsts]], [[asymmetric-key]], [[symmetric-key]]
+- **핵심 결론**: HTTPS = TCP(연결) + TLS(암호화). TLS handshake에서 비대칭키로 세션키 교환 후 대칭키로 통신. CA 인증서는 브라우저가 직접 계산해서 검증.

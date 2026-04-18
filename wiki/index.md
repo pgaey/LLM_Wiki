@@ -48,6 +48,8 @@ updated: 2026-04-13
 - 🟡 [[reverse-proxy]] — 서버 대리인. Nginx가 WAS 앞에 서는 이유. (2026-04-18)
 - 🟡 [[forward-proxy]] — 클라이언트 대리인. VPN·방화벽. (2026-04-18)
 - 🟡 [[nginx-architecture]] — 이벤트루프+epoll. C10K 해결. (2026-04-18)
+- 🟡 [[tcp]] — 3-way handshake. HTTP/HTTPS 공통 연결 파이프. (2026-04-18)
+- 🟡 [[http-https-tls]] — HTTPS=HTTP+TLS. CA 인증서·TLS handshake·세션키 전체 흐름. (2026-04-18)
 
 ### 🖥 browser (DOM·렌더링·Web API)
 > `wiki/browser/`

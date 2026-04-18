@@ -126,3 +126,285 @@ Output/     # 최종 산출물. 로드맵·비교·설명자료·슬라이드 �
 - `raw/` 파일은 **AI가 절대 수정·삭제하지 않는다**. 원본은 영원.
 - `wiki/`는 AI의 영역. 사용자는 주로 읽고 질문·방향 지시.
 - `Output/`은 **완성된 산출물 전용**. 작업 중 중간 메모는 `wiki/` 또는 채팅.
+
+---
+
+## 6. 슬래시 커맨드 (.claude/commands/)
+
+### 커맨드 일람
+
+| 커맨드 | 방향 | 한 줄 목적 |
+|--------|------|-----------|
+| `/ingest` | 외부 → wiki | 클리핑·대화 소스를 wiki로 소화 |
+| `/study <주제>` | 대화 → wiki | 즉석 학습 세션 → 자동 저장 |
+| `/query <질문>` | wiki → 답변 | wiki 기반 탐색·답변 (pull) |
+| `/review [대상]` | wiki → 테스트 | 30초 설명 테스트 · status 전이 (push) |
+| `/lint` | wiki → 리포트 | 고아·모순·stub 만료 등 정비 |
+
+집 컴퓨터(Mac mini) 전용:
+
+| 커맨드 | 목적 |
+|--------|------|
+| `/graphify wiki/` | wiki 전체를 그래프로 분석 |
+| `/graphify --update wiki/` | 변경된 파일만 증분 재분석 |
+
+---
+
+### 각 커맨드 행동 순서
+
+---
+
+#### `/ingest [파일경로]`
+
+> 웹 클리핑·작업 노트 등 `raw/` 소스를 wiki로 소화.
+> 상세: `.claude/commands/ingest.md`
+
+```
+1. 대상 식별
+   - 경로 없으면 raw/ 스캔 → 후보 테이블 제시 → 번호 선택
+   - 인자 있으면 그 파일 바로 사용
+
+2. 🚪 Intent Gate (reason 확인)
+   - reason 있으면 "이 이유 맞아?" 확인
+   - reason 없으면 "왜 들였어?" 질문
+   - "모르겠다" → Parking 강등 (wiki 본체 건드리지 않음)
+
+3. 모드 결정
+   - learn      → 읽기 가이드 생성 → Output/reading-plans/
+   - synthesize → 요약·용어·30초 설명 테스트 → wiki 반영
+   - parking    → log.md 한 줄만 기록
+
+4. [synthesize] wiki 반영
+   a. wiki/summaries/ 에 요약 페이지 생성
+   b. 관련 도메인 폴더 페이지 업데이트 (없으면 신규 제안)
+   c. wiki/index.md 갱신
+   d. wiki/log.md append
+
+5. raw/ 프론트매터 status 업데이트 제안 (승인 후)
+   raw → ingested | parking
+```
+
+**ingest 후 자연스러운 다음 행동:**
+- 집이면 → `/graphify --update wiki/` (변경 반영)
+- 학습 확인하려면 → `/review <주제>`
+
+---
+
+#### `/study <주제> [--source URL] [--quick] [--deep]`
+
+> 대화 기반 학습 세션. 끝나면 raw/conversations/ 저장 → /ingest 체인.
+> 상세: `.claude/commands/study.md`
+
+```
+1. 🚪 Reason 질문 (Gold gate)
+   - "왜 공부해? 한 줄로" → 모르겠다면 세션 거부
+
+2. 선행 지식 스캐닝
+   - 이미 아는 것 / 약한 것 확인
+   - wiki/ 에 관련 페이지 있으면 먼저 확인
+
+3. 목표 수준 확인
+   a) 용어 정의  b) 메커니즘  c) 30초 설명  d) 실전 적용
+
+4. 티키타카 학습
+   - AI가 정답 직불 금지 → 질문으로 유도
+   - 단계마다 30초 설명 테스트
+   - 막힌 지점 = 다음 학습 타겟으로 기록
+
+5. 종료 신호 ("끝" / "정리하자" / "저장해줘")
+
+6. 자동 저장
+   a. raw/conversations/YYYY-MM-DD-슬러그.md 생성
+      (Q&A 요약 + 도달 이해 + 낯선 용어)
+   b. 즉시 /ingest synthesize 체인 실행
+   c. wiki/<domain>/ 스텁·페이지 생성·업데이트
+   d. wiki/log.md: [study | 주제]
+
+7. 마무리 보고
+   - 업데이트된 wiki 목록
+   - 식별된 다음 학습 타겟
+```
+
+**study 후 자연스러운 다음 행동:**
+- 바로 검증 → `/review <주제>`
+- 관련 아티클 있으면 → `/ingest` 로 보강
+- 집이면 → `/graphify --update wiki/`
+
+---
+
+#### `/query <질문>`
+
+> wiki 기반으로 답변. 벡터 DB 아님 — index-first 검색 + 위키링크 인용.
+> 상세: `.claude/commands/query.md`
+
+```
+1. wiki/index.md 먼저 읽고 관련 페이지 후보 특정
+
+2. Grep으로 핵심 용어 검색 → 최대 5개 페이지 Read
+
+3. 답변 합성
+   - 모든 주장에 [[위키링크]] 인용 (근거 없는 문장 금지)
+   - wiki에 없으면 솔직하게 "갭" 고지 → 소스 후보 제안
+
+4. 답변이 gold 가치면 저장 제안
+   - Output/comparisons/ : 비교·대조
+   - Output/explanations/: 설명자료
+   - Output/roadmaps/    : 학습 로드맵
+   - wiki/<domain>/      : 새 개념 페이지로 승격
+
+5. wiki/log.md 기록 (의미 있는 쿼리 or 파일링된 경우만)
+```
+
+**query 후 자연스러운 다음 행동:**
+- 갭 발견 → `/study <빈 개념>` or `/ingest` 로 소스 투입
+- 답변이 좋으면 → Output/ 저장 제안 수락
+
+---
+
+#### `/review [대상] [--stubs] [--drafts] [--stable] [--count N]`
+
+> wiki 페이지 기반으로 AI가 출제 → 사용자가 답 → 채점 → status 전이 제안.
+> 상세: `.claude/commands/review.md`
+
+```
+1. 대상 선택
+   - 인자 없으면 우선순위 자동 선정:
+     stub 14일+ > draft 30일+ > stable 60일+ > 최신 추가
+   - 후보 테이블 제시 → 번호 or all 선택
+
+2. 출제 (status에 따라 강도 조절)
+   - stub:   개념 정의 + 왜 중요한지 30초로
+   - draft:  메커니즘 + 함정 + 1년 목표 연결
+   - stable: 대비·응용·edge case
+
+3. 사용자 답변
+   - "패스" → 정답 보여주고 status 유지
+   - "힌트" → 한 단계 힌트 (2회 한도)
+   - "설명해줘" → /study <주제> 제안
+
+4. 채점
+   - ✅ Pass:    30초 이내, 핵심 맞음
+   - 🟡 Partial: 핵심은 있으나 빈 자리
+   - ❌ Miss:    핵심 놓침
+
+5. status 전이 제안 (자동 적용 금지, 승인 후)
+   stub  + Pass    → draft 승급?
+   draft + Pass×2  → stable 승급?
+   stable + Miss   → draft 강등?
+
+6. 이력 기록
+   - wiki/meta/review-history.md (append)
+   - wiki/log.md 짧은 엔트리
+
+7. 다음 review 간격 제안
+   Pass → 간격 × 2 / Partial → 유지 / Miss → 1일 후
+```
+
+**review 후 자연스러운 다음 행동:**
+- Miss 난 주제 → `/study <주제>` 로 재학습
+- stub → draft 승급되면 → `/graphify --update wiki/` 로 그래프 갱신
+
+---
+
+#### `/lint`
+
+> 위키 전체 건강 검진. 9개 축 스캔 → 리포트 → 승인 후 반영.
+> 상세: `.claude/commands/lint.md`
+
+```
+스캔 항목:
+  A. Orphan Pages      - inbound 링크 0인 페이지
+  B. 충돌 플래그       - ⚠️ 충돌: 표기된 곳
+  C. 누락 교차참조     - 본문에 있는데 [[링크]] 안 된 개념
+  D. Ghost Concepts    - 링크는 있는데 실제 파일 없는 것
+  E. Staleness         - updated 60일+ + 새 소스 미반영
+  F. Parking Rot       - parking 30일+ 경과
+  G. Raw 체증          - status:raw 14일+ 방치
+  H. reason 누락       - raw/ 중 reason 비어있는 것
+  I. 1년 목표 커버리지 - 목표 리스트 대비 wiki 페이지 현황
+
+결과: Output/reports/YYYY-MM-DD-lint.md 저장
+수정: 건별 승인 후 반영 (자동 적용 없음)
+```
+
+**lint 후 자연스러운 다음 행동:**
+- Ghost Concepts → `/study` or `/ingest` 로 채우기
+- Parking Rot → `/ingest` 재시도 or 버리기
+- 커버리지 갭 → 학습 우선순위 재조정
+
+---
+
+#### `/graphify wiki/` (집 전용)
+
+> wiki 전체를 그래프로 변환. 커뮤니티·허브·갭을 시각화.
+> 별도 skill 파일 참조.
+
+```
+전체 파이프라인:
+  1. wiki/ 파일 탐지
+  2. 의미적 추출 (엔티티·관계·위키링크)
+  3. 그래프 빌드 + 커뮤니티 감지
+  4. 분석 (God Nodes, Surprising Connections)
+  5. 출력: graphify-out/graph.html (브라우저로 열기)
+           graphify-out/GRAPH_REPORT.md
+           graphify-out/graph.json
+
+/graphify --update wiki/ = 변경 파일만 증분 재추출 (빠름, 권장)
+```
+
+**graphify 후 가능한 것:**
+- `graph.html` 브라우저로 열어 Obsidian 그래프 뷰와 비교
+- `GRAPH_REPORT.md` 에서 갭 확인 → `/lint` or `/study` 타겟 도출
+- `/graphify query "질문"` 으로 그래프 탐색
+
+---
+
+### 📐 권장 워크플로 순서도
+
+```
+[지식 수집]
+  Web Clipper → raw/articles/ or raw/videos/
+  업무 이슈   → raw/work-notes/
+  대화        → /study (자동 저장)
+
+        ↓
+
+[소화 · 컴파일]
+  /ingest          외부 소스 → wiki
+  /study <주제>    대화 → wiki (자동 ingest 체인)
+
+        ↓
+
+[탐색 · 활용]
+  /query <질문>    wiki 기반 답변 (pull)
+
+        ↓
+
+[검증 · 승급]
+  /review          30초 설명 테스트 → status 전이
+
+        ↓
+
+[정비 · 분석]  (집에서, 주기적)
+  /lint                     wiki 건강 검진
+  /graphify --update wiki/   그래프 갱신
+  ./sync.sh                  GitHub 동기화
+
+        ↓
+
+[반복]
+  새 갭 발견 → /study or /ingest → ...
+```
+
+### ⚡ 상황별 추천
+
+| 상황 | 추천 커맨드 |
+|------|------------|
+| 블로그 클리핑 후 | `/ingest` |
+| 개념 모를 때 | `/study <개념>` |
+| wiki에서 뭔가 찾을 때 | `/query <질문>` |
+| 배운 거 검증할 때 | `/review <주제>` |
+| stub이 쌓였을 때 | `/review --stubs` |
+| 정기 정비 (격주) | `/lint` |
+| 지식이 쌓인 뒤 (집) | `/graphify --update wiki/` |
+| 기기 동기화 | `./sync.sh` |

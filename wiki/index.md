@@ -38,10 +38,16 @@ updated: 2026-04-13
 - 🔵 [[bearer-token]] — Access Token의 형태·특성 (2026-04-13)
 - 🔵 [[jwt]] — JSON Web Token (2026-04-13)
 
-### 🌐 network (HTTP·TCP·DNS 등)
+### 🌐 network (HTTP·TCP·DNS·프록시·서버 역사)
 > `wiki/network/`
 
-_(비어 있음)_
+- 🟡 [[web-server-history]] — 정적→CGI→FastCGI→WAS→Nginx 역사 흐름 (2026-04-18)
+- 🟡 [[cgi]] — 동적 처리 최초 규약. 요청마다 프로세스 생성·종료. (2026-04-18)
+- 🟡 [[fastcgi]] — 프로세스 풀 재사용으로 CGI 오버헤드 해결 (2026-04-18)
+- 🟡 [[was]] — FastCGI가 독립 앱 서버로 진화. Express·Tomcat. (2026-04-18)
+- 🟡 [[reverse-proxy]] — 서버 대리인. Nginx가 WAS 앞에 서는 이유. (2026-04-18)
+- 🟡 [[forward-proxy]] — 클라이언트 대리인. VPN·방화벽. (2026-04-18)
+- 🟡 [[nginx-architecture]] — 이벤트루프+epoll. C10K 해결. (2026-04-18)
 
 ### 🖥 browser (DOM·렌더링·Web API)
 > `wiki/browser/`
@@ -60,7 +66,7 @@ _(비어 있음)_
 ### 📜 javascript
 > `wiki/javascript/`
 
-_(비어 있음)_
+- 🟡 [[event-loop]] — I/O는 OS 위임·CPU는 직접 실행. Call Stack·Queue·libuv. (2026-04-18)
 
 ### 🏷 typescript
 > `wiki/typescript/`

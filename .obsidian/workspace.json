@@ -4,30 +4,9 @@
     "type": "split",
     "children": [
       {
-        "id": "34ad75c4be5668eb",
-        "type": "tabs",
-        "dimension": 57.44336569579288,
-        "children": [
-          {
-            "id": "fa65ce04bf4297d0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CLAUDE.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "CLAUDE"
-            }
-          }
-        ]
-      },
-      {
         "id": "7346fad9c0b2779a",
         "type": "tabs",
-        "dimension": 42.55663430420712,
+        "dimension": 99.99999999999999,
         "children": [
           {
             "id": "a1cd4f9c74916484",
@@ -38,79 +17,8 @@
               "icon": "lucide-git-fork",
               "title": "그래프 뷰"
             }
-          },
-          {
-            "id": "d6455a55873518f7",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "raw/CLAUDE.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "CLAUDE"
-            }
-          },
-          {
-            "id": "b062fe082ca31d86",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "CLAUDE.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "CLAUDE"
-            }
-          },
-          {
-            "id": "f541736bda580f1b",
-            "type": "leaf",
-            "pinned": true,
-            "state": {
-              "type": "terminal:terminal",
-              "state": {
-                "terminal:terminal": {
-                  "cwd": "/Users/leeyeachan/Desktop/옵시디언/Wiki",
-                  "focus": false,
-                  "profile": {
-                    "args": [
-                      "--login"
-                    ],
-                    "executable": "/bin/zsh",
-                    "followTheme": true,
-                    "name": "",
-                    "platforms": {
-                      "darwin": true
-                    },
-                    "pythonExecutable": "python3",
-                    "restoreHistory": false,
-                    "rightClickAction": "copyPaste",
-                    "successExitCodes": [
-                      "0",
-                      "SIGINT",
-                      "SIGTERM"
-                    ],
-                    "terminalOptions": {
-                      "documentOverride": null
-                    },
-                    "type": "integrated",
-                    "useWin32Conhost": true
-                  },
-                  "serial": null
-                }
-              },
-              "pinned": true,
-              "icon": "terminal",
-              "title": "터미널: ✳ Claude Code"
-            }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -167,8 +75,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "c8ba4c0ab50427cb",
@@ -184,7 +91,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "CLAUDE.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -194,7 +100,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "CLAUDE 의 백링크"
+              "title": "백링크"
             }
           },
           {
@@ -203,12 +109,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "CLAUDE.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "CLAUDE 의 나가는 링크"
+              "title": "나가는 링크"
             }
           },
           {
@@ -246,13 +151,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "CLAUDE.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "CLAUDE 의 개요"
+              "title": "개요"
             }
           }
         ]
@@ -274,8 +178,18 @@
       "terminal:Open terminal": false
     }
   },
-  "active": "fa65ce04bf4297d0",
+  "active": "a1cd4f9c74916484",
   "lastOpenFiles": [
+    "wiki/javascript/event-loop.md",
+    "wiki/network/nginx-architecture.md",
+    "wiki/network/forward-proxy.md",
+    "wiki/network/reverse-proxy.md",
+    "wiki/network/was.md",
+    "wiki/network/fastcgi.md",
+    "wiki/network/cgi.md",
+    "wiki/network/web-server-history.md",
+    "raw/conversations/2026-04-18-nginx-web-server-study.md",
+    "CLAUDE.md",
     "sync.sh",
     "setup.sh",
     "graphify-out/cache/032444a61b0368eb25e6e44aac5e9212a1317370d69a5fe37a502d4a3c46aa2f.json",
@@ -286,9 +200,7 @@
     "graphify-out/cache/1032c2cb8cc7d8bb3951f23905ab13a3fd90fbb5a32f9f5c9b0605b0f435e2e0.json",
     "graphify-out/cache/a2e7f0068480dcd230bc3a9f1c50c9ddc109f2bc6a90040c5020caddd9f86894.json",
     "graphify-out/cache/5f19fc729d845725723da81f288dc55a45da4da84853b102e31cb8a7329b9faa.json",
-    "graphify-out/cache/9c31db9888194b0c587b822d4a419de815d557203ad291ae7c4beb77b4f7686f.json",
     "wiki/meta/WIKI_RULES.md",
-    "CLAUDE.md",
     "wiki/cs/base64.md",
     "wiki/security/jwt.md",
     "wiki/security/bearer-token.md",
@@ -303,14 +215,6 @@
     "graphify-out/GRAPH_REPORT.md",
     "Output/reading-plans/2026-04-13-basic-bearer-auth.md",
     "wiki/summaries/2026-04-13-toss-basic-bearer-auth.md",
-    "wiki/concepts/base64.md",
-    "wiki/concepts/jwt.md",
-    "wiki/concepts/bearer-token.md",
-    "wiki/concepts/oauth-2.md",
-    "wiki/concepts/bearer-auth.md",
-    "wiki/concepts/basic-auth.md",
-    "wiki/concepts/authorization-header.md",
-    "wiki/concepts/http-authentication.md",
-    "wiki/index.md"
+    "wiki/concepts/base64.md"
   ]
 }

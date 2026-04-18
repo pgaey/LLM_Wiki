@@ -56,3 +56,15 @@ type: log
   3. Stub 시한 (14일 경고 / 30일 아카이브 제안, 삭제 아님)
   4. 파일명 규약 (raw/summary=날짜prefix, wiki본체=영문 kebab-case)
 - **후속**: CLAUDE.md(root, wiki), 슬래시 커맨드 3개 폴더 참조 업데이트.
+
+## [2026-04-18] study | Nginx + Web 서버 역사 전체 (3 session)
+
+- **모드**: study (자동 synthesize 체인)
+- **reason**: 회사에서 nginx.conf에 로그 수집 시도 → "Nginx 역할과 맞지 않음" 피드백 → 직접 판단하려고
+- **원본**: [[2026-04-18-nginx-web-server-study]]
+- **반영된 wiki (7개, 모두 draft)**:
+  - [[web-server-history]], [[cgi]], [[fastcgi]], [[was]] — network/
+  - [[reverse-proxy]], [[forward-proxy]], [[nginx-architecture]] — network/
+  - [[event-loop]] — javascript/
+- **핵심 결론**: 로그 수집이 왜 Nginx에 맞지 않는가 — 역할(HTTP 관문)·이벤트루프(CPU 작업 블로킹)·대안(Sentry/BE API) 3가지로 설명 가능
+- **다음 학습 타겟**: [[epoll]], [[libuv]], [[cdn]], [[ssl-tls]], [[php-fpm]]
